@@ -1,13 +1,15 @@
 <launch>
 
+    <include file="$(find usb_cam)/launch/usb_cam-test.launch"/>
+
     <!--Detector Node-->
     <include file="$(find aprilslam)/launch/detector.launch">
-        <arg name="camera" value="/stereo/cam0"/>
+        <arg name="camera" value="/usb_cam/"/>
 	<arg name="size" value="0.172"/>
     </include>
 
     <include file="$(find aprilslam)/launch/mapper.launch">
-        <arg name="camera" value="/stereo/cam0"/>
+        <arg name="camera" value="/usb_cam/"/>
     </include>
 
     <node name="rviz" pkg="rviz" type="rviz"

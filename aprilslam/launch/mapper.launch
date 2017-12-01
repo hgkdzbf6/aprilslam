@@ -1,5 +1,5 @@
 <launch>
-    <arg name="camera" default="/camera"/>
+    <arg name="camera" default="/usb_cam"/>
 
     <node pkg="aprilslam" type="mapper_node" name="mapper"
         output="screen" ns="$(arg camera)" respawn="true">

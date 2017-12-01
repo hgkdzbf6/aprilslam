@@ -20,7 +20,7 @@ DetectorNode::DetectorNode(const ros::NodeHandle &nh,
       cam_calibrated_(true),
       it_(nh),
       sub_camera_(
-          it_.subscribeCamera("image_rect", 1, &DetectorNode::CameraCb, this)),
+          it_.subscribeCamera("image_raw", 1, &DetectorNode::CameraCb, this)),
       pub_tags_(nh_.advertise<aprilslam::Apriltags>("apriltags", 1)),
       pub_detections_(nh_.advertise<sensor_msgs::Image>("detections", 1)),
       tag_detector_(AprilTags::tagCodes36h11),
