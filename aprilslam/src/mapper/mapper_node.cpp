@@ -32,22 +32,22 @@ void MapperNode::TagsCb(const aprilslam::ApriltagsConstPtr& tags_c_msg) {
     ROS_WARN_THROTTLE(1, "No 2D-3D correspondence.");
     return;
   }
-  // Now that with the initial pose calculated, we can do some mapping
-  mapper_.AddPose(pose);
-  mapper_.AddFactors(tags_c_good);
-  if (mapper_.init()) {
-    // This will only add new landmarks
-    mapper_.AddLandmarks(tags_c_good);
-    mapper_.Optimize();
-    // Get latest estimates from mapper and put into map
-    mapper_.Update(&map_, &pose);
-    // Prepare for next iteration
-    mapper_.Clear();
-  } else {
-    // This will add first landmark at origin and fix scale for first pose and
-    // first landmark
-    mapper_.Initialize(map_.first_tag());
-  }
+  // // Now that with the initial pose calculated, we can do some mapping
+  // mapper_.AddPose(pose);
+  // mapper_.AddFactors(tags_c_good);
+  // if (mapper_.init()) {
+  //   // This will only add new landmarks
+  //   mapper_.AddLandmarks(tags_c_good);
+  //   mapper_.Optimize();
+  //   // Get latest estimates from mapper and put into map
+  //   mapper_.Update(&map_, &pose);
+  //   // Prepare for next iteration
+  //   mapper_.Clear();
+  // } else {
+  //   // This will add first landmark at origin and fix scale for first pose and
+  //   // first landmark
+  //   mapper_.Initialize(map_.first_tag());
+  // }
 
   // Publish camera to world transform
   std_msgs::Header header;
