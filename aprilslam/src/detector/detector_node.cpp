@@ -12,7 +12,9 @@
 #include <AprilTags/Tag36h11.h>
 
 namespace aprilslam {
-
+/**
+ * 学习风骚的publisher和subscriber的初始化方法
+ */
 DetectorNode::DetectorNode(const ros::NodeHandle &nh,
                            const ros::NodeHandle &pnh)
     : nh_(nh),
@@ -33,6 +35,9 @@ DetectorNode::DetectorNode(const ros::NodeHandle &nh,
   tag_viz_.SetAlpha(0.75);
 }
 
+/**
+ * 好好学习图像消息的特殊处理
+ */
 void DetectorNode::ConnectCb() {
   std::lock_guard<std::mutex> lock(connect_mutex_);
   if (!pub_tags_.getNumSubscribers())

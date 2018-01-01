@@ -37,7 +37,9 @@ class DetectorNode {
   ros::Publisher pub_detections_;
   std::mutex connect_mutex_;
   image_geometry::PinholeCameraModel model_;
+  //和上面差不多
   AprilTags::TagDetector tag_detector_;
+  //rviz的可视化对象，marker什么的
   aprilslam::ApriltagVisualizer tag_viz_;
 };
 

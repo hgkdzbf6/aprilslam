@@ -46,6 +46,7 @@ bool TagMap::EstimatePose(const std::vector<Apriltag> &tags_c,
 
   for (const Apriltag &tag_c : tags_c) {
     // Find 2D-3D correspondences
+	//学习风骚的lambda表达式
     auto it = FindById(tag_c.id, tags_w());
     if (it != tags_w().cend()) {
       const Apriltag &tag_w = *it;

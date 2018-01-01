@@ -150,7 +150,7 @@ Eigen::Matrix4d TagDetection::getRelativeTransform(double tag_size, double fx,
 
   return T;
 }
-
+//把罗德里格斯的结果变成四元数
 void TagDetection::getRelativeQT(double tag_size, const cv::Matx33d &K,
                                  const cv::Mat_<double> &D,
                                  Eigen::Quaterniond &quat,
@@ -168,7 +168,7 @@ void TagDetection::getRelativeQT(double tag_size, const cv::Matx33d &K,
   }
   quat = Eigen::AngleAxis<double>(rn, rnorm);
 }
-
+//结果是罗德里格斯公式
 void TagDetection::getRelativeRT(double tag_size, const cv::Matx33d &K,
                                  const cv::Mat_<double> &D, cv::Mat &rvec,
                                  cv::Mat &tvec) const {
