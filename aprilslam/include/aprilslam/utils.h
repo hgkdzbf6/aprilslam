@@ -5,6 +5,7 @@
 #include <geometry_msgs/Quaternion.h>
 #include <geometry_msgs/Pose.h>
 #include <Eigen/Geometry>
+#include <tf/transform_broadcaster.h>
 #include <opencv2/core/core.hpp>
 
 namespace aprilslam {

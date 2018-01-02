@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -Ofast -Wall")
 
 find_package(catkin REQUIRED COMPONENTS
     roscpp image_transport cv_bridge image_geometry
-    apriltag_mit std_msgs tf2_ros
+    apriltag_mit std_msgs tf2_ros tf
     )
 
 find_package(cmake_modules)
@@ -33,6 +33,7 @@ add_library(${PROJECT_NAME}
     src/visualizer/visualizer.cpp
     src/detector/detector_node.cpp
     src/mapper/mapper_node.cpp
+    src/mapper/mapper_two_image_node.cpp
     )
 target_link_libraries(${PROJECT_NAME}
     ${catkin_LIBRARIES}
@@ -51,6 +52,14 @@ add_executable(mapper_node
     src/mapper/mapper_main.cpp
     )
 target_link_libraries(mapper_node
+    ${PROJECT_NAME}
+    )
+    
+# detector node
+add_executable(mapper_two_image_node
+    src/mapper/mapper_two_image_main.cpp
+    )
+target_link_libraries(mapper_two_image_node
     ${PROJECT_NAME}
     )
 

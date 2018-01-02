@@ -89,6 +89,7 @@ void DetectorNode::CameraCb(const sensor_msgs::ImageConstPtr &image_msg,
 
     tag_viz_.PublishApriltagsMarker(tags_c_msg);
     pub_tags_.publish(tags_c_msg);
+    //ROS_INFO_STREAM(tags_c_msg);
   }
 	pub_detections_.publish(cv_ptr->toImageMsg());
 }
