@@ -18,14 +18,16 @@ namespace aprilslam {
 
 class MapperTwoImageNode {
  public:
-  MapperTwoImageNode(const ros::NodeHandle& nh, const std::string& frame_id, const std::string& other_frame_id)
+  MapperTwoImageNode(const ros::NodeHandle& nh, const std::string& frame_id,
+		  const std::string& new_frame_id,const std::string& parent_frame_id)
       : nh_(nh),
         sub_tags_(nh_.subscribe("apriltags", 1, &MapperTwoImageNode::TagsCb, this)),
-        sub_other_tags_(nh_.subscribe("other_apriltags", 1, &MapperTwoImageNode::TagsCb, this)),
+        sub_other_tags_(nh_.subscribe("other_apriltags", 1, &MapperTwoImageNode::TagsCb2, this)),
         sub_cinfo_(nh_.subscribe("camera_info", 1, &MapperTwoImageNode::CinfoCb, this)),
-		sub_other_cinfo_(nh_.subscribe("other_camera_info", 1, &MapperTwoImageNode::TagsCb, this)),
+		sub_other_cinfo_(nh_.subscribe("other_camera_info", 1, &MapperTwoImageNode::CinfoCb2, this)),
 		frame_id_(frame_id),
-		other_frame_id_(other_frame_id),
+		new_frame_id_(new_frame_id),
+		parent_frame_id_(parent_frame_id),
         mapper_(0.04, 1),
         tag_viz_(nh, "apriltags_map") {
     		tag_viz_.SetColor(aprilslam::GREEN);
@@ -53,7 +55,8 @@ class MapperTwoImageNode {
   ros::Subscriber sub_other_cinfo_;
 
   std::string frame_id_;
-  std::string other_frame_id_;
+  std::string new_frame_id_;
+  std::string parent_frame_id_;
 
   aprilslam::TagMap map_;
   aprilslam::TagMap map2_;

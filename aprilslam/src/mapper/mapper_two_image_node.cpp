@@ -107,9 +107,9 @@ void MapperTwoImageNode::TagsCb2(const aprilslam::ApriltagsConstPtr& tags_c_msg)
 	tf::Transform transform;
 	for(i=0;i<this->tags_.size();i++){
 		for(j=0;j<this->other_tags_.size();j++){
-			if(tags_[i].id==tags_[j].id){
+			if(tags_[i].id==other_tags_[j].id){
 				pose1=tags_[i].pose;
-				pose2=other_tags_[i].pose;
+				pose2=other_tags_[j].pose;
 				tf::Quaternion q1,q2;
 				quaternion2tf(pose1.orientation,q1);
 				quaternion2tf(pose2.orientation,q2);
@@ -123,7 +123,7 @@ void MapperTwoImageNode::TagsCb2(const aprilslam::ApriltagsConstPtr& tags_c_msg)
 			}
 		}
 	}
-	br.sendTransform(tf::StampedTransform(transform,ros::Time::now(),frame_id_,other_frame_id_));
+	br.sendTransform(tf::StampedTransform(transform,ros::Time::now(),parent_frame_id_,new_frame_id_));
 }
 
 void MapperTwoImageNode::quaternion2tf(const geometry_msgs::Quaternion q,tf::Quaternion& qq){

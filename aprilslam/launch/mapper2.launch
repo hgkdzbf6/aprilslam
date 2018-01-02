@@ -1,7 +1,10 @@
 <launch>
     <arg name="camera" default="/usb_cam"/>
-
+    <arg name="new_frame_id" default="new_frame_id" />
+    <arg name="parent_frame_id" default="parent_frame_id" />
     <node pkg="aprilslam" type="mapper_two_image_node" name="mapper"
         output="screen" ns="$(arg camera)" respawn="true">
+        <param name="new_frame_id" value="$(arg new_frame_id)" />
+        <param name="parent_frame_id" value="$(arg parent_frame_id)" />
     </node>
 </launch>
