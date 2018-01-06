@@ -22,6 +22,7 @@ class MapperNode {
       : nh_(nh),
         sub_tags_(nh_.subscribe("apriltags", 1, &MapperNode::TagsCb, this)),
         sub_cinfo_(nh_.subscribe("camera_info", 1, &MapperNode::CinfoCb, this)),
+		pub_dx_dy_(nh_.advertise<geometry_msgs::Vector3>("pub_dx_dy",1)),
         frame_id_(frame_id),
         mapper_(0.04, 1),
         tag_viz_(nh, "apriltags_map") {
@@ -39,8 +40,12 @@ class MapperNode {
   ros::NodeHandle nh_;
   ros::Subscriber sub_tags_;
   ros::Subscriber sub_cinfo_;
+
+  ros::Publisher pub_dx_dy_;
   std::string frame_id_;
   aprilslam::TagMap map_;
+
+  std::vector<Apriltag> tags_;
   aprilslam::Mapper mapper_;
   aprilslam::ApriltagVisualizer tag_viz_;
   image_geometry::PinholeCameraModel model_;

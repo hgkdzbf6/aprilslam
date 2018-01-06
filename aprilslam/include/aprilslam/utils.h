@@ -10,6 +10,13 @@
 
 namespace aprilslam {
 
+typedef struct Match2d_{
+	double x1;
+	double y1;
+	double x2;
+	double y2;
+}Match2D;
+
 bool IsInsideImageCenter(double x, double y, int w, int h, double k);
 
 void SetPose(geometry_msgs::Pose* pose,
