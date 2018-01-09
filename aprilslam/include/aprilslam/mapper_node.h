@@ -5,7 +5,7 @@
 #include <aprilslam/Apriltags.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <geometry_msgs/Pose.h>
-#include <geometry_msgs/Vector3.h>
+#include <geometry_msgs/TwistStamped.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <image_geometry/pinhole_camera_model.h>
 #include "aprilslam/visualizer.h"
@@ -22,7 +22,7 @@ class MapperNode {
       : nh_(nh),
         sub_tags_(nh_.subscribe("apriltags", 1, &MapperNode::TagsCb, this)),
         sub_cinfo_(nh_.subscribe("camera_info", 1, &MapperNode::CinfoCb, this)),
-		pub_dx_dy_(nh_.advertise<geometry_msgs::Vector3>("pub_dx_dy",1)),
+		pub_pos_vel_(nh_.advertise<geometry_msgs::TwistStamped>("/image_pos_vel",10)),
         frame_id_(frame_id),
         mapper_(0.04, 1),
         tag_viz_(nh, "apriltags_map") {
@@ -41,7 +41,7 @@ class MapperNode {
   ros::Subscriber sub_tags_;
   ros::Subscriber sub_cinfo_;
 
-  ros::Publisher pub_dx_dy_;
+  ros::Publisher pub_pos_vel_;
   std::string frame_id_;
   aprilslam::TagMap map_;
 

@@ -70,15 +70,23 @@ void MapperNode::TagsCb(const aprilslam::ApriltagsConstPtr& tags_c_msg) {
 	  dx+=match[i].x;
 	  dy+=match[i].y;
   }
-  dx=dx/match_count;
-  dy=dy/match_count;
+  if(match_count!=0){
+	  dx=dx/match_count;
+	  dy=dy/match_count;
+  }else{
+	  dx=dy=0;
+  }
   //需要转化成实际坐标吗?还是在控制里面调整?
   //先后者吧
 //  第四步:广播
-  geometry_msgs::Vector3 vv;
-  vv.x=dx;
-  vv.y=dy;
-  pub_dx_dy_.publish(vv);
+  geometry_msgs::TwistStamped vv;
+  vv.header.frame_id="pub_pos_vel";
+  vv.header.stamp=ros::Time::now();
+  vv.twist.angular.x=-dx;
+  vv.twist.angular.y=dy;
+  vv.twist.linear.x=pose.position.x;
+  vv.twist.linear.y=pose.position.y;
+  pub_pos_vel_.publish(vv);
   //最后一步:更新上次图像的结果
   this->tags_=std::vector<aprilslam::Apriltag>(tags_c_msg->apriltags);
 
